@@ -17,8 +17,7 @@ lamp1 = LED_controller.ledLamp( 1, {
         "white":5,  #pin 18
         "yellow":6  #pin 22
     })
-#TODO:  confirm GPIO numbers
-# is this done???
+
 lamp2 = LED_controller.ledLamp( 2, {
         "red":7, #pin 24
         "blue":8, # pin 26
@@ -48,12 +47,12 @@ def rotateAllLamps(onTime, offTime):
         lamp1.ledOn(color)
         lamp2.ledOn(color)
         lamp3.ledOn(color)
-#        lamp4.ledOn(color)
+        lamp4.ledOn(color)
         time.sleep(onTime)
         lamp1.ledOff(color)
         lamp2.ledOff(color)
         lamp3.ledOff(color)
-#        lamp4.ledOff(color)
+        lamp4.ledOff(color)
         time.sleep(offTime)
 
 def randomOnAllLamps(nTimes, onTime, offTime):
@@ -64,12 +63,12 @@ def randomOnAllLamps(nTimes, onTime, offTime):
         lamp1.ledOn(leds[j])
         lamp2.ledOn(leds[j])
         lamp3.ledOn(leds[j])
-#        lamp4.ledOn(leds[j])
+        lamp4.ledOn(leds[j])
         time.sleep(onTime)
         lamp1.ledOff(leds[j])
         lamp2.ledOff(leds[j])
         lamp3.ledOff(leds[j])
-#        lamp4.ledOff(leds[j])
+        lamp4.ledOff(leds[j])
         time.sleep(offTime)
 
 def rotateEach(onTime, offTime, nRotations):
@@ -80,8 +79,26 @@ def rotateEach(onTime, offTime, nRotations):
     print "Lamp 3"
     lamp3.rotateLeds(onTime, offTime, nRotations)
     print "Lamp 3"
-#    lamp4.rotateLeds(onTime, offTime, nRotations)
-    
+    lamp4.rotateLeds(onTime, offTime, nRotations)
+
+def downTheLine(onTime, offTime, ledColor): 
+    lamp1.ledOn(ledColor)
+    time.sleep(onTime)
+    lamp1.ledOff(ledColor)
+    time.sleep(offTime)
+    lamp2.ledOn(ledColor)
+    time.sleep(onTime)
+    lamp2.ledOff(ledColor)
+    time.sleep(offTime)
+    lamp3.ledOn(ledColor)
+    time.sleep(onTime)
+    lamp3.ledOff(ledColor)
+    time.sleep(offTime)
+    lamp4.ledOn(ledColor)
+    time.sleep(onTime)
+    lamp4.ledOff(ledColor)
+    time.sleep(offTime)
+           
 nRotations = 50
 longOnTime = .25
 shortOnTime = 0.1
@@ -95,11 +112,17 @@ while(True):
         lamp1.allOn()
         lamp2.allOn()
         lamp3.allOn()
+        lamp4.allOn()
         time.sleep(shortOnTime)
         lamp1.allOff()
         lamp2.allOff()
         lamp3.allOff()
+        lamp4.allOff()
         time.sleep(shortPauseTime)
+    
+    for i in range(1, nRotations):
+        for color in leds:
+            downTheLine(longOnTime, shortPauseTime, color)
     
     #Turn on all of the same color in each lamp
     print "Random color"
@@ -135,10 +158,12 @@ while(True):
         lamp1.allOn()
         lamp2.allOn()
         lamp3.allOn()
+        lamp4.allOn()
         time.sleep(shortOnTime)
         lamp1.allOff()
         lamp2.allOff()
         lamp3.allOff()
+        lamp4.allOff()
         time.sleep(shortPauseTime)
         
     # another rotate down the line.
